@@ -1,5 +1,6 @@
 import { useState } from "react"
 import axios from 'axios'
+import { useNavigate } from "react-router-dom"
 
 const Register=()=>{
 
@@ -9,6 +10,7 @@ const Register=()=>{
     const [errors,setErrors]=useState({})
     const [success,setSuccess]=useState(false)
     const [loading,setLoading]=useState(false)
+    const navigate=useNavigate()
 
     const handleRegistration=async (e)=>{
         e.preventDefault()
@@ -22,6 +24,7 @@ const Register=()=>{
             console.log("registration successful")
             setErrors({})
             setSuccess(true)
+            navigate('/login')
         } catch (error) {
             setErrors(error.response.data)
             console.error("registration error is ",error.response.data)
@@ -67,7 +70,7 @@ const Register=()=>{
                         {success && <div class="alert alert-success" role="alert">
 Registration Successful </div>}
 
-                        {loading ? <button type="submit" className="d-block mx-auto btn btn-info">Please Wait..</button> :
+                        {loading ? <button type="submit" disabled className="d-block mx-auto btn btn-info">Please Wait..</button> :
 
                         <button type="submit" className="d-block mx-auto btn btn-info">Register</button>
 
